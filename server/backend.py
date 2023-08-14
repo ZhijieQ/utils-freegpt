@@ -4,7 +4,7 @@ from g4f import ChatCompletion
 from flask import request, Response, stream_with_context
 from requests import get
 from server.config import special_instructions
-
+from server.babel import get_provider_by_name
 
 class Backend_Api:
     def __init__(self, bp, config: dict) -> None:
@@ -30,15 +30,19 @@ class Backend_Api:
         conversation_id = request.json['conversation_id']
 
         try:
+            api_key = request.json['api_key']
             jailbreak = request.json['jailbreak']
             model = request.json['model']
+            provider = request.json['provider']
             messages = build_messages(jailbreak)
 
             # Generate response
             response = ChatCompletion.create(
                 model=model,
                 chatId=conversation_id,
-                messages=messages
+                messages=messages,
+                api_key=api_key,
+                provider=get_provider_by_name(provider)
             )
 
             return Response(stream_with_context(generate_stream(response, jailbreak)), mimetype='text/event-stream')

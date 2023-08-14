@@ -2,8 +2,7 @@ from flask import render_template, redirect, url_for, request, session
 from flask_babel import refresh
 from time import time
 from os import urandom
-from server.babel import get_locale, get_languages
-
+from server.babel import get_locale, get_languages, get_providers_by_model, get_models_by_provider, get_best_provider_by_model, get_all_models
 
 class Website:
     def __init__(self, bp, url_prefix) -> None:
@@ -33,7 +32,23 @@ class Website:
             '/get-languages': {
                 'function': self.get_languages,
                 'methods': ['GET']
-            }
+            },
+            '/get-providers_by_model': {
+                'function': self.get_providers_by_model,
+                'methods': ['POST']
+            },
+            '/get-models_by_provider': {
+                'function': self.get_models_by_provider,
+                'methods': ['POST']
+            },
+            '/get-best_provider_by_model': {
+                'function': self.get_best_provider_by_model,
+                'methods': ['POST']
+            },
+            '/get-all_models': {
+                'function': self.get_all_models,
+                'methods': ['GET']
+            },
         }
 
     def _chat(self, conversation_id):
@@ -56,3 +71,15 @@ class Website:
     
     def get_languages(self):  
         return get_languages()
+
+    def get_providers_by_model(self):
+        return get_providers_by_model(request.json['model'])
+
+    def get_models_by_provider(self):
+        return get_models_by_provider(request.json['provider'])
+
+    def get_best_provider_by_model(self):
+        return get_best_provider_by_model(request.json['model'])
+
+    def get_all_models(self):
+        return get_all_models()

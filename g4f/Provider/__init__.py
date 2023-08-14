@@ -10,6 +10,7 @@ from .Providers import (
     ChatgptAi,
     ChatgptLogin,
     ChatgptLogin,
+    Chimera,
     DeepAi,
     Easychat,
     Ezcht,

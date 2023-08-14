@@ -17,7 +17,7 @@ async function fetchLanguages() {
             option.textContent = lang;  
             languageSelect.appendChild(option);  
         });  
-  
+
         const savedLanguage = localStorage.getItem("language") || currentLanguage;  
         setLanguageOnPageLoad(savedLanguage);  
     } catch (error) {  

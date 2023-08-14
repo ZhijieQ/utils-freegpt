@@ -2,7 +2,7 @@ import os, requests, json, browser_cookie3, re, random
 from ...typing import sha256, Dict, get_type_hints
 
 url = 'https://bard.google.com'
-model = ['Palm2']
+model = ['palm2']
 supports_stream = False
 needs_auth = True
 

@@ -48,6 +48,14 @@
 						<i class="fa-regular fa-trash"></i>
 						<span>{{_('Clear Conversations')}}</span>
 					</button>
+					<div class="api-key-container" id="api-key-container">
+						<button id="show-api-key-button" class="button">
+							<i class="fa-regular fa-key"></i> 
+							<span>{{_('API Key')}}</span>
+						</button>
+						<input type="password" id="API-key" class="hidden fade-in" />
+						<button id="api-key-ok-button" class="button hidden fade-in">{{_('Ok')}}</button>
+					</div>
 					<div class="settings-container">
 						<div class="checkbox field">
 							<span>{{_('Dark Mode')}}</span>
@@ -92,10 +100,11 @@
 					<div class="options-container">
 						<div class="buttons">
 							<div class="field">
-								<select class="dropdown" name="model" id="model">
-									<option value="gpt-3.5-turbo">GPT-3.5</option>
-									<option value="gpt-3.5-turbo-16k">GPT-3.5-turbo-16k</option>
-									<option value="gpt-4" selected>GPT-4</option>
+								<select class="dropdown" name="model" id="model" onchange="fetchProviders()">
+								</select>
+							</div>
+							<div class="field">
+								<select class="dropdown" name="provider" id="provider" onchange="fetchModels()">
 								</select>
 							</div>
 							<div class="field">
@@ -111,6 +120,11 @@
 							<label for="switch"></label>
 							<span>{{_('Web Access')}}</span>
 						</div>
+						<!--div class="checkbox field">
+							<span>All Models </span>
+							<input type="checkbox" id="all-models" />
+							<label for="all-models"></label>
+						</div-->
 					</div>
 				</div>
 			</div>
@@ -123,6 +137,8 @@
 		<script>
 			window.conversation_id = "{{ chat_id }}";
 		</script>
+		<script src="{{ url_for('bp.static', filename='js/change-models.js') }}"></script>
+		<script src="{{ url_for('bp.static', filename='js/api-key.js') }}"></script>
 		<script src="{{ url_for('bp.static', filename='js/icons.js') }}"></script>
 		<script src="{{ url_for('bp.static', filename='js/chat.js') }}" defer></script>
 		<script src="https://cdn.jsdelivr.net/npm/markdown-it@latest/dist/markdown-it.min.js"></script>

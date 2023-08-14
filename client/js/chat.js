@@ -62,6 +62,7 @@ const ask_gpt = async (message) => {
 
 		jailbreak = document.getElementById("jailbreak");
 		model = document.getElementById("model");
+		provider = document.getElementById("provider");
 		prompt_lock = true;
 		window.text = ``;
 		window.token = message_id();
@@ -90,7 +91,7 @@ const ask_gpt = async (message) => {
 		window.scrollTo(0, 0);
 		await new Promise((r) => setTimeout(r, 1000));
 		window.scrollTo(0, 0);
-
+		
 		const response = await fetch(`${url_prefix}/backend-api/v2/conversation`, {
 			method: `POST`,
 			signal: window.controller.signal,
@@ -99,9 +100,11 @@ const ask_gpt = async (message) => {
 				accept: `text/event-stream`,
 			},
 			body: JSON.stringify({
+				api_key: get_api_key_from_input(),
 				conversation_id: window.conversation_id,
 				action: `_ask`,
 				model: model.options[model.selectedIndex].value,
+				provider: provider.options[provider.selectedIndex].value,
 				jailbreak: jailbreak.options[jailbreak.selectedIndex].value,
 				meta: {
 					id: window.token,
