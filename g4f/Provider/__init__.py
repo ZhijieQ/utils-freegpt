@@ -23,6 +23,7 @@ from .Providers import (
     Liaobots,
     Lockchat,
     Mishalsgpt,
+    Openai,
     Phind,
     Theb,
     Vercel,

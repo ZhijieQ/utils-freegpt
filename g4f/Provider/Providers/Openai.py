@@ -6,26 +6,19 @@ from dotenv import load_dotenv
 from ...typing import sha256, Dict, get_type_hints
 
 load_dotenv()
-api_key_env = os.environ.get("CHIMERA_API_KEY")
-# Chimera is not working
+api_key_env = os.environ.get("OPENAI_API_KEY")
 # openai.api_base = "https://chimeragpt.adventblocks.cc/api/v1"
 
-url = 'https://chimeragpt.adventblocks.cc/'
+url = 'https://api.openai.com'
 model = [
     'gpt-3.5-turbo',
-    'gpt-3.5-turbo-0301',
-    'gpt-3.5-turbo-16k',
-    'gpt-4',
-    'gpt-4-0314',
-    'gpt-4-32k',
-    'llama-2-70b-chat',
+    'gpt-4'
 ]
 supports_stream = True
 needs_auth = False
 
 
 def _create_completion(model: str, messages: list, stream: bool = True, api_key: str = None, **kwargs):
-    # breakpoint()
     openai.api_key = api_key if api_key else api_key_env
     if openai.api_key is None:
         yield "To use Chimera, you need to provide the API-KEY"
